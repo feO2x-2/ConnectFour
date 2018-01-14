@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:l="clr-namespace:ConnectFour.WpfClient">
+    <l:ColorConverter x:Key="ColorConverter" />
+    <l:HasTurnToBrushConverter x:Key="HasTurnToBrushConverter" />
+
+    <DataTemplate x:Key="PlayerViewModelDataTemplate" DataType="{x:Type l:IPlayerViewModel}">
+        <l:PlayerView />
+    </DataTemplate>
+
+    <DataTemplate x:Key="BoardViewModelDataTemplate" DataType="{x:Type l:IBoardViewModel}">
+        <l:BoardView />
+    </DataTemplate>
+
+</ResourceDictionary>

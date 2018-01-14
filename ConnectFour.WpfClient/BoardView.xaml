@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="ConnectFour.WpfClient.BoardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sd="clr-namespace:ConnectFour.WpfClient.SampleData"
+             mc:Ignorable="d" 
+             d:DesignHeight="572" d:DesignWidth="800">
+    <d:UserControl.DataContext>
+        <sd:BoardViewModelSampleData />
+    </d:UserControl.DataContext>
+    <UserControl.Resources>
+        <ControlTemplate x:Key="CellListBoxItemTemplate" TargetType="{x:Type ListBoxItem}">
+            <Button BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="Transparent"
+                    Command="{Binding ClickCellCommand}">
+                <Ellipse Width="80" Height="80" Fill="{Binding Path=Chip.Color, Converter={StaticResource ColorConverter}}" />
+            </Button>
+        </ControlTemplate>
+
+        <Style x:Key="CellListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Template" Value="{StaticResource CellListBoxItemTemplate}" />
+            <Setter Property="Grid.Row" Value="{Binding Y}" />
+            <Setter Property="Grid.Column" Value="{Binding X}" />
+        </Style>
+
+        <ItemsPanelTemplate x:Key="PlatzListBoxItemsPanelTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </ItemsPanelTemplate>
+
+        <Style x:Key="PläteListBoxStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource CellListBoxItemStyle}" />
+            <Setter Property="ItemsPanel" Value="{StaticResource PlatzListBoxItemsPanelTemplate}" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+
+        <ControlTemplate x:Key="KlickSpalteListBoxItemTemplate" TargetType="{x:Type ListBoxItem}">
+            <Button Content="" 
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                Margin="{TemplateBinding Padding}"
+                Command="{Binding}"/>
+        </ControlTemplate>
+
+        <Style x:Key="KlickSpalteListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Template" Value="{StaticResource KlickSpalteListBoxItemTemplate}" />
+            <Setter Property="Grid.Column" Value="{Binding ColumnIndex}" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="7.5 0" />
+            <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+
+        <Style x:Key="KlickSpalteCommandsListBoxStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="Margin" Value="0 5 0 0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource KlickSpalteListBoxItemStyle}" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListBox ItemsSource="{Binding Cells}" Style="{StaticResource PläteListBoxStyle}" />
+
+        <ListBox ItemsSource="{Binding ClickColumnCommands}" Style="{StaticResource KlickSpalteCommandsListBoxStyle}"
+                 Grid.Row="1"/>
+
+    </Grid>
+</UserControl>
