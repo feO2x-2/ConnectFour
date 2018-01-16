@@ -12,6 +12,7 @@ namespace ConnectFour.WpfClient.Tests
         private BoardMock _boardMock;
         private IMainWindowViewModel _testTarget;
         private List<PlayerViewModelMock> _playerViewModelMocks;
+        private int _showWinnerDialogCount;
 
         [TestInitialize]
         public void TestInitialize()
@@ -26,7 +27,7 @@ namespace ConnectFour.WpfClient.Tests
                                          new PlayerViewModelMock(_playerBMock)
                                      };
 
-            _testTarget = new MainWindowViewModel(_playerViewModelMocks, new BoardViewModelSampleData(), _boardMock);
+            _testTarget = new MainWindowViewModel(_playerViewModelMocks, new BoardViewModelSampleData(), _boardMock, winner => _showWinnerDialogCount++);
         }
 
         [TestMethod]

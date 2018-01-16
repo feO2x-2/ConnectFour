@@ -76,6 +76,9 @@
     <Compile Include="SampleData\ClickColumnCommandDummy.cs" />
     <Compile Include="SampleData\MainWindowViewModelSampleData.cs" />
     <Compile Include="SampleData\PlayerViewModelSampleData.cs" />
+    <Compile Include="WinDialog.xaml.cs">
+      <DependentUpon>WinDialog.xaml</DependentUpon>
+    </Compile>
     <Page Include="BoardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +100,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WinDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,7 +144,11 @@
       <Name>ConnectFour.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Assets\Win.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

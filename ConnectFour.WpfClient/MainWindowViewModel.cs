@@ -11,12 +11,14 @@ namespace ConnectFour.WpfClient
         private readonly IReadOnlyList<IPlayerViewModel> _playerViewModels;
         private readonly IBoard _board;
         private string _gameText;
+        private readonly Action<string> _showWinnerDialog;
 
-        public MainWindowViewModel(IReadOnlyList<IPlayerViewModel> playerViewModels, IBoardViewModel boardViewModel, IBoard board)
+        public MainWindowViewModel(IReadOnlyList<IPlayerViewModel> playerViewModels, IBoardViewModel boardViewModel, IBoard board, Action<string> showWinnerDialog)
         {
             _playerViewModels = playerViewModels;
             _boardViewModel = boardViewModel;
             _board = board;
+            _showWinnerDialog = showWinnerDialog;
         }
 
         public IBoardViewModel BoardViewModel
@@ -44,7 +46,10 @@ namespace ConnectFour.WpfClient
 
             var winnerName = _board.DetermineWinner();
             if (winnerName != null)
+            {
                 GameText = winnerName + " wins!";
+                _showWinnerDialog(winnerName);
+            }
             else
             {
                 foreach (var playerViewModel in _playerViewModels)
