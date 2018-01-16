@@ -30,7 +30,7 @@ namespace ConnectFour.WpfClient
 
             var boardViewModel = new BoardViewModel(cellViewModels, clickColumnCommands, board.Columns);
 
-            var mainWindowViewModel = new MainWindowViewModel(playerViewModels, boardViewModel, board);
+            var mainWindowViewModel = new MainWindowViewModel(playerViewModels, boardViewModel, board, winner => new WinDialog(winner).ShowDialog());
 
             clickColumnCommands.AddRange(board.Columns.Select(column => new ClickColumnCommand(column, mainWindowViewModel)));
 
